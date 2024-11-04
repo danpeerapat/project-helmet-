@@ -9,14 +9,18 @@ import os
 # ลิงก์ดาวน์โหลดโมเดลจาก Dropbox
 helmet_model_url = 'https://www.dropbox.com/scl/fi/x58ezyimczi70qu836gsv/helmet_detection_model5.h5?rlkey=lylheycc8n0rr9pp0inzrlnce&st=lv9pjmy7&dl=1'
 
-# ดาวน์โหลดและบันทึกโมเดลชั่วคราวในเครื่อง
-response = requests.get(helmet_model_url)
+# กำหนดตำแหน่งไฟล์ชั่วคราวสำหรับโมเดล
 temp_model_path = 'temp_helmet_detection_model.h5'
-with open(temp_model_path, 'wb') as f:
-    f.write(response.content)
 
-# โหลดโมเดลจากไฟล์ชั่วคราว
-helmet_model = tf.keras.models.load_model(temp_model_path)
+@st.cache_resource
+def load_helmet_model():
+    response = requests.get(helmet_model_url)
+    with open(temp_model_path, 'wb') as f:
+        f.write(response.content)
+    return tf.keras.models.load_model(temp_model_path)
+
+# โหลดโมเดลจากฟังก์ชันที่ใช้ cache เพื่อป้องกันการดาวน์โหลดซ้ำ
+helmet_model = load_helmet_model()
 class_names_helmet = ['Without Helmet', 'With Helmet']
 
 # ฟังก์ชันสำหรับแปลงภาพจากกล้องให้สามารถประมวลผลได้
