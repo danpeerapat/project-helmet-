@@ -186,7 +186,7 @@ broker = "d8229ac5fefe43a9a7c09fabb5f30929.s1.eu.hivemq.cloud"
 port = 8883
 username = "python"
 password = "123456789"
-topic = "esp32cam/image"
+topic = "esp32cam/capture"
 
 client = mqtt.Client()
 client.tls_set()
