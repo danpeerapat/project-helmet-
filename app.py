@@ -156,6 +156,7 @@ import io
 import requests
 from PIL import Image
 import paho.mqtt.client as mqtt
+import os
 
 app = Flask(__name__)
 CORS(app)
