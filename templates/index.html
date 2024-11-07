@@ -142,6 +142,37 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        /* Style สำหรับสมาชิก */
+        #members {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .member {
+            text-align: center;
+            width: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .member h3 {
+            font-size: 1.2em;
+            margin: 10px 0 5px;
+        }
+        .member p {
+            font-size: 1em;
+            color: #555;
+        }
     </style>
     <!-- โหลดไลบรารี mqtt.min.js -->
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -151,6 +182,44 @@
     <video id="video" autoplay></video>
     <button onclick="captureAndPredict()">Capture & Predict</button>
     <div id="result">Prediction will appear here...</div>
+
+    <div id="members">
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/gbv9x25jvbf1jsmujubxr/mark.jpg?rlkey=0jgshbzc31pmocjps30lfpdej&st=aibz2brd&raw=1" alt="Member 1">
+            <h3>Chonnaphat Wetchapruekpitak</h3>
+            <p>65010173</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/vck4czcs39anmp4f9b6pp/chin.jpg?rlkey=h0ebsquwrrrhk599sqx1vdqfm&st=b9a6kc8g&raw=1" alt="Member 2">
+            <h3>Chinnawat Promtape</h3>
+            <p>65010224</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/305a4l67mo7y672tx8e7r/leo.jpg?rlkey=8j1ipehf35gnrmnc0w0ftn738&st=vvga6chg&raw=1" alt="Member 3">
+            <h3>Setthawut Oonsamli</h3>
+            <p>65011153</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/4fhdkeptg55rky1khiyjh/dan.jpg?rlkey=f0jrs7nful3rjjgg0lr6gpus5&st=80hu894l&raw=1" alt="Member 4">
+            <h3>Peerapat Kaewthon</h3>
+            <p>65010766</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/hdg5n8jip1oo4w8h8ihs3/pluem.jpg?rlkey=0q6jz3dlszoz8aluyaxvdkv1b&st=d1e0fhj9&raw=1" alt="Member 5">
+            <h3>Taptat Charoenphol</h3>
+            <p>65010380</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/urf8u9d3vtracsljjutsl/tik.jpg?rlkey=tmzasxyuwr2a8qv4zm94j1i6l&st=o0sk5tcu&raw=1" alt="Member 6">
+            <h3>Yannakorn saechao</h3>
+            <p>65010238</p>
+        </div>
+        <div class="member">
+            <img src="https://www.dropbox.com/scl/fi/nd0dd5wvopxvurdmlxh29/first.jpg?rlkey=wj0r9koykkjrln4yl7b2t9cv3&st=udihhxwl&raw=1" alt="Member 7">
+            <h3>Pollawit Choonkesa</h3>
+            <p>65010703</p>
+        </div>
+    </div>
 
     <script>
         // เปิดกล้อง
