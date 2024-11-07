@@ -5,6 +5,7 @@ import numpy as np
 import base64
 import re
 import io
+import os
 import requests
 from PIL import Image
 import paho.mqtt.client as mqtt
