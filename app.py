@@ -277,4 +277,5 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5100)
+    port = int(os.environ.get("PORT", 5000))  # ใช้พอร์ตจากตัวแปรสภาพแวดล้อมหรือ 5000 ถ้าไม่ได้กำหนด
+    app.run(host='0.0.0.0', port=port)
