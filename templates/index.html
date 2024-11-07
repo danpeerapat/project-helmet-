@@ -65,7 +65,7 @@
             const imageData = canvas.toDataURL('image/jpeg');
 
             // ส่งภาพไปยัง Flask API
-            fetch('http://localhost:5000/upload', {
+            fetch('https://helmet-auto-detection-a0d0ef360489.herokuapp.com/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
