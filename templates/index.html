@@ -30,7 +30,7 @@
             cursor: pointer;
         }
 
-        /* Style สำหรับสมาชิก */
+        
         #members {
             margin-top: 30px;
             display: flex;
@@ -61,7 +61,6 @@
             color: #555;
         }
     </style>
-    <!-- โหลดไลบรารี mqtt.min.js -->
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 </head>
 <body>
@@ -109,7 +108,7 @@
     </div>
 
     <script>
-        // ขอสิทธิ์เข้าถึงกล้อง
+        // สิทธิ์เข้าถึงกล้อง
         const video = document.getElementById('video');
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
@@ -120,19 +119,16 @@
                 document.getElementById('result').innerText = "Cannot access webcam. Please allow access.";
             });
 
-        // ฟังก์ชันในการจับภาพและส่งไปยังเซิร์ฟเวอร์
+        // จับภาพและส่งไปยังเซิร์ฟเวอร์
         function captureAndPredict() {
-            // สร้าง canvas สำหรับแปลงภาพจากกล้อง
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             const context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             
-            // แปลงภาพให้เป็น base64
             const imageData = canvas.toDataURL('image/jpeg');
 
-            // ส่งภาพไปยัง Flask API ที่ /upload 
             fetch('https://helmet-auto-detection-a0d0ef360489.herokuapp.com/upload', {  
                 method: 'POST',
                 headers: {
@@ -149,7 +145,7 @@
                 return response.json();
             })
             .then(data => {
-                // แสดงผลการทำนายเซิร์ฟเวอร์ฝั่งของไพทอน
+                
                 document.getElementById('result').innerText = 
                     `Vehicle: ${data.vehicle_result}\nHelmet: ${data.helmet_result}`;
             })
@@ -159,7 +155,7 @@
             });
         }
 
-        // เชื่อม mqtt broker (Websocket)
+        
         const client = mqtt.connect('wss://d8229ac5fefe43a9a7c09fabb5f30929.s1.eu.hivemq.cloud:8884/mqtt', {
             username: 'python',
             password: '123456789'
@@ -180,7 +176,7 @@
                 const command = message.toString();
                 if (command === 'capture') {
                     console.log('Received capture command');
-                    captureAndPredict();  // เรียกใช้ฟังก์ชัน captureAndPredict เมื่อได้รับคำสั่ง
+                    captureAndPredict();  
                 }
             }
         });

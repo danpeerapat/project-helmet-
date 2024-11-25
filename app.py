@@ -15,11 +15,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# URLs ของโมเดล
 vehicle_model_url = 'https://www.dropbox.com/scl/fi/zlmm6k6u96qgemddm4bzn/vehicle_classification.onnx?rlkey=pvcrm0bv2vxczmhou6bfqoa9h&st=4pplshvw&dl=1'
 helmet_model_url = 'https://www.dropbox.com/scl/fi/gd8djpwcr9itx3nkxgjbr/helmet_detection_model.onnx?rlkey=f5p5ezg76wdicvcuzfw4kzuub&st=bpc3tiuu&dl=1'
 
-# ฟังก์ชันสำหรับการดาวน์โหลดโมเดล
 def download_model(url, filename):
     response = requests.get(url)
     if response.status_code == 200:
@@ -28,7 +26,6 @@ def download_model(url, filename):
     else:
         raise Exception(f"Failed to download model from {url}")
 
-# ดาวน์โหลดโมเดลและโหลดเข้า onnxruntime
 download_model(vehicle_model_url, 'vehicle_classification.onnx')
 vehicle_session = ort.InferenceSession('vehicle_classification.onnx')
 
@@ -49,9 +46,8 @@ client.connect(broker, port)
 
 class_names = ['bike', 'car']
 helmet_class_names = ['no helmet', 'helmet']
-CONFIDENCE_THRESHOLD = 0.7  # กำหนดค่าความมั่นใจขั้นต่ำที่ต้องการ
+CONFIDENCE_THRESHOLD = 0.7  
 
-# ฟังก์ชันสำหรับการเตรียมภาพ
 def prepare_image(img, img_width=150, img_height=150):
     img = img.resize((img_width, img_height))
     img_array = np.array(img).astype('float32')
@@ -59,14 +55,12 @@ def prepare_image(img, img_width=150, img_height=150):
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
-# ฟังก์ชัน Ping สำหรับส่งคำสั่ง "ping" ไปยัง MQTT ทุก 5 นาที
 def ping_mqtt():
     while True:
         client.publish(topic, "ping")
-        print("Sent 'ping' to MQTT server")  # ใช้สำหรับ debug
-        time.sleep(60)  # รอ 300 วินาที (5 นาที)
+        print("Sent 'ping' to MQTT server")  
+        time.sleep(60) 
 
-# ฟังก์ชันสำหรับการทำนายประเภทพาหนะ
 def classify_vehicle(img):
     img_array = prepare_image(img)
     input_name = vehicle_session.get_inputs()[0].name
@@ -75,7 +69,6 @@ def classify_vehicle(img):
     confidence = np.max(prediction[0])
     return predicted_class, confidence
 
-# ฟังก์ชันสำหรับการทำนายการใส่หมวกกันน็อค
 def classify_helmet(img):
     img_array = prepare_image(img)
     input_name = helmet_session.get_inputs()[0].name
@@ -85,7 +78,6 @@ def classify_helmet(img):
     helmet_confidence = np.max(prediction)
     return predicted_helmet_class, helmet_confidence
 
-# Route สำหรับอัปโหลดภาพและประมวลผล
 @app.route('/upload', methods=['POST'])
 def upload_image():
     if 'image' in request.form:
@@ -133,7 +125,6 @@ def upload_image():
     else:
         return "No image found", 400
 
-# หน้าเว็บหลัก
 @app.route('/')
 def home():
     return render_template('index.html')
