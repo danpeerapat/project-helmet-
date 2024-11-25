@@ -169,7 +169,6 @@
             client.subscribe('esp32cam/capture');
         });
 
-        // รับข้อความจาก MQTT broker
         client.on('message', (topic, message) => {
             console.log(`Received message on topic ${topic}: ${message.toString()}`);
             if (topic === 'esp32cam/capture') {

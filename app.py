@@ -130,11 +130,11 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    # เริ่มต้น Thread สำหรับ ping MQTT
+    # Thread สำหรับ ping MQTT
     ping_thread = threading.Thread(target=ping_mqtt)
     ping_thread.daemon = True
     ping_thread.start()
 
-    # เริ่ม Flask server
-    port = int(os.environ.get("PORT", 5000))  # ใช้พอร์ตจากตัวแปรสภาพแวดล้อมหรือ 5000 ถ้าไม่ได้กำหนด
+    
+    port = int(os.environ.get("PORT", 5000))  
     app.run(host='0.0.0.0', port=port)
